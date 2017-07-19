@@ -1,0 +1,6 @@
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.csprojResolveAssemblyReference.cache
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.dll
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.pdb
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.tlb
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.dll
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.pdb
