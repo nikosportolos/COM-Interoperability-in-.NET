@@ -9,13 +9,6 @@
 --------------------------
 
 
-
---------------------------
-      Before we start
---------------------------
-
-
-
 --------------------------
           Tips
 --------------------------
@@ -31,6 +24,11 @@
          Tutorial
 --------------------------
 
+'----------------------
+'      P A R T   I
+'----------------------
+'
+
 1) Make assembly COM Visible
 	* Right-Click on Project
 	* Application tab
@@ -43,9 +41,10 @@
 	* Output section
 	* Check option "Register for COM interop"
 
-3) Add: using System.Runtime.InteropServices
+3) Access InteropServices Namespace
+	using System.Runtime.InteropServices
 
-4) Create your interface
+4) Create your Class interface
 	[Guid("123456789-1234-1234-1234-123456789123")]
 	[ComVisible(true)]
 	public interface IVB6Interop
@@ -58,7 +57,7 @@
 	[Guid("123456789-1234-1234-1234-123456789123")]
     [ProgId("VB6Interop")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComSourceInterfaces(typeof(IVB6Interop))]
+    [ComSourceInterfaces(typeof(IVB6InteropEvents))]
     [ComVisible(true)]
     public class VB6Interop : IVB6Interop
     {
@@ -75,43 +74,70 @@
     	}
     }
 
-6) Create Events
-	[InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
+6) VB6 Code
+	Option Explicit
+	' Declare a VB6Interop object
+	Public VB6 As VB6Interop.VB6Interop
+
+	Private Sub Form_Load()
+		' Initialize VB6Interop object
+		Set VB6 = New VB6Interop.VB6Interop
+	End Sub
+
+	Private Sub Command1_Click()
+		' Use SampleMethod() of VB6Interop
+		VB6.SampleMethod "Hello VB6!"
+	End Sub
+
+'----------------------
+'      P A R T   II
+'----------------------
+
+
+1) Create your Event interface
 	[Guid("123456789-1234-1234-1234-123456789123")]
-    public interface IQRCodeEvents
+    [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
+    public interface IVB6InteropEvents
     {
         [DispId(1)]
         void SampleEvent(string Message);
     }
 
-7) Implement Events - Create delegate
+2) Implement Events - Create delegate
 	public delegate void SampleEventHandler(string Message);
 
-8) Implement Events - Create event
+3) Implement Events - Create event
 	public new event SampleEventHandler SampleEvent = null;
 
-9) Implement Events - Create event trigger
+4) Implement Events - Create event trigger
 	public void FireSampleEvent(string Message);
 
-10) Implement Events
-	[Guid("123456789-1234-1234-1234-123456789123")]
+5) [Guid("7E6D6368-0033-49F6-9FE3-B2D409572869")]
     [ProgId("VB6Interop")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComSourceInterfaces(typeof(IVB6Interop))]
+    [ComSourceInterfaces(typeof(IVB6InteropEvents))]
     [ComVisible(true)]
     public class VB6Interop : IVB6Interop
     {
-    	public string SampleMethod(string Message)
-    	{
-    		//MessageBox.Show(Message);
-    		FireSampleEvent("I received the message: " + Message);
-    	}
+        public void SampleMethod(string Message)
+        {
+            try
+            {
+                //MessageBox.Show(Message);
+                FireSampleEvent("I received the message: " + Message);
+            }
+            catch (Exception ex)
+            {                
+                throw new Exception("Exception occured in SampleMethod(): ", ex);
+            }
+        }
 
-    	// Create delegate
-		public delegate void SampleEventHandler(string Message);
-		// Create event
-		public new event SampleEventHandler SampleEvent = null;
-		/// Create event trigger
+        // Create delegate
+        [ComVisible(true)]
+        public delegate void SampleEventHandler(string Message);
+        // Create event
+        public new event SampleEventHandler SampleEvent = null;
+        // Create event trigger
         public void FireSampleEvent(string Message)
         {
             try
@@ -126,42 +152,25 @@
         }
     }
 
-11) VB6 Code
-	Option Explicit
-	' Declare a VB6Interop object
-	Public VB6 As VB6Interop.VB6Interop
+6) VB6 Code - With Events
+Option Explicit
+' Declare a VB6Interop object
+Public WithEvents VB6 As VB6Interop.VB6Interop
 
-	Private Sub Command1_Click()
-		' Use SampleMethod() of VB6Interop
-		VB6.SampleMethod "Hello VB6!"
-	End Sub
+Private Sub Command1_Click()
+' Use SampleMethod() of VB6Interop
+VB6.SampleMethod "Hello VB6!"
+End Sub
 
-	Private Sub Form_Load()
-		' Initialize VB6Interop object
-		Set VB6 = New VB6Interop.VB6Interop
-	End Sub
+Private Sub Form_Load()
+' Initialize VB6Interop object
+Set VB6 = New VB6Interop.VB6Interop
+End Sub
 
-12) VB6 Code - With Events
-	Option Explicit
-	' Declare a VB6Interop object
-	Public WithEvents VB6 As VB6Interop.VB6Interop
-
-	Private Sub Command1_Click()
-		' Use SampleMethod() of VB6Interop
-		VB6.SampleMethod "Hello VB6!"
-	End Sub
-
-	Private Sub Form_Load()
-		' Initialize VB6Interop object
-		Set VB6 = New VB6Interop.VB6Interop
-	End Sub
-
-	' Implement SampleEvent
-		Private Sub VB6_SampleEvent(ByVal Message As String)
-		MsgBox Message
-	End Sub
-
-
+' Implement SampleEvent
+Private Sub VB6_SampleEvent(ByVal Message As String)
+MsgBox Message
+End Sub
 
 
 
