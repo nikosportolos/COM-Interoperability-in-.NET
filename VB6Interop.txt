@@ -126,6 +126,45 @@
         }
     }
 
+11) VB6 Code
+	Option Explicit
+	' Declare a VB6Interop object
+	Public VB6 As VB6Interop.VB6Interop
+
+	Private Sub Command1_Click()
+		' Use SampleMethod() of VB6Interop
+		VB6.SampleMethod "Hello VB6!"
+	End Sub
+
+	Private Sub Form_Load()
+		' Initialize VB6Interop object
+		Set VB6 = New VB6Interop.VB6Interop
+	End Sub
+
+12) VB6 Code - With Events
+	Option Explicit
+	' Declare a VB6Interop object
+	Public WithEvents VB6 As VB6Interop.VB6Interop
+
+	Private Sub Command1_Click()
+		' Use SampleMethod() of VB6Interop
+		VB6.SampleMethod "Hello VB6!"
+	End Sub
+
+	Private Sub Form_Load()
+		' Initialize VB6Interop object
+		Set VB6 = New VB6Interop.VB6Interop
+	End Sub
+
+	' Implement SampleEvent
+		Private Sub VB6_SampleEvent(ByVal Message As String)
+		MsgBox Message
+	End Sub
+
+
+
+
+
 --------------------------
      Examples/Sources
 --------------------------

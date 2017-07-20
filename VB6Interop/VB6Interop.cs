@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace VB6Interop
@@ -15,10 +16,18 @@ namespace VB6Interop
         void SampleMethod(string Message);
     }
 
+    [Guid("23E474CE-06D1-4987-80D2-2F6C856D4E2D")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
+    public interface IVB6InteropEvents
+    {
+        [DispId(1)]
+        void SampleEvent(string Message);
+    }
+
     [Guid("7E6D6368-0033-49F6-9FE3-B2D409572869")]
     [ProgId("VB6Interop")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComSourceInterfaces(typeof(IVB6Interop))]
+    [ComSourceInterfaces(typeof(IVB6InteropEvents))]
     [ComVisible(true)]
     public class VB6Interop : IVB6Interop
     {
@@ -36,6 +45,7 @@ namespace VB6Interop
         }
 
         // Create delegate
+        [ComVisible(true)]
         public delegate void SampleEventHandler(string Message);
 
         // Create event
