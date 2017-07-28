@@ -1,0 +1,12 @@
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.csprojResolveAssemblyReference.cache
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.dll
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.pdb
+D:\workspace\Tutorials\VB6Interop\VB6Interop\bin\Debug\VB6Interop.tlb
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.dll
+D:\workspace\Tutorials\VB6Interop\VB6Interop\obj\Debug\VB6Interop.pdb
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\bin\Debug\VB6Interop.dll
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\bin\Debug\VB6Interop.pdb
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\bin\Debug\VB6Interop.tlb
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\obj\Debug\VB6Interop.csprojResolveAssemblyReference.cache
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\obj\Debug\VB6Interop.dll
+C:\Users\nportolos\Documents\workspace\VB6Interop\VB6Interop\obj\Debug\VB6Interop.pdb
