@@ -9,11 +9,26 @@ Begin VB.Form frmInteropVB6
    ScaleHeight     =   2160
    ScaleWidth      =   6525
    StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox txtCurrentTime 
+      Height          =   585
+      Left            =   3390
+      TabIndex        =   3
+      Top             =   1200
+      Width           =   2265
+   End
+   Begin VB.CommandButton cmdGetTime 
+      Caption         =   "Get Current Time"
+      Height          =   585
+      Left            =   870
+      TabIndex        =   2
+      Top             =   1200
+      Width           =   2265
+   End
    Begin VB.TextBox txtSampleMethod 
       Height          =   585
       Left            =   3390
       TabIndex        =   1
-      Top             =   810
+      Top             =   510
       Width           =   2265
    End
    Begin VB.CommandButton cmdTestSampleMethod 
@@ -21,7 +36,7 @@ Begin VB.Form frmInteropVB6
       Height          =   585
       Left            =   870
       TabIndex        =   0
-      Top             =   788
+      Top             =   495
       Width           =   2265
    End
 End
@@ -35,6 +50,14 @@ Option Explicit
 ' Declare a VB6Interop object
 Public WithEvents VB6 As VB6Interop.VB6Interop
 Attribute VB6.VB_VarHelpID = -1
+
+Private Sub cmdGetTime_Click()
+Dim sTime As String
+
+sTime = VB6.GetTime
+Me.txtCurrentTime.Text = sTime
+
+End Sub
 
 Private Sub cmdTestSampleMethod_Click()
 

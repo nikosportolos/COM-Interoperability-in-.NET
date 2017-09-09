@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-
 namespace VB6Interop
 {
     #region Interface
@@ -16,6 +15,9 @@ namespace VB6Interop
     {
         [DispId(1)]
         void SampleMethod(string Message);
+
+        [DispId(2)]
+        string GetTime();
     }
 
     [Guid("23E474CE-06D1-4987-80D2-2F6C856D4E2D")]
@@ -25,7 +27,6 @@ namespace VB6Interop
         [DispId(1)]
         void SampleEvent(string Message);
     }
-
     #endregion
 
     [Guid("7E6D6368-0033-49F6-9FE3-B2D409572869")]
@@ -48,11 +49,12 @@ namespace VB6Interop
             }
         }
 
-        public void GetTime()
+        public string GetTime()
         {
             try
             {
-                FireSampleEvent("I received the message: " + Message);
+                string sTime = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy");
+                return sTime;
             }
             catch (Exception ex)
             {
@@ -82,7 +84,5 @@ namespace VB6Interop
             }
         }
         #endregion
-
     }
-
 }
