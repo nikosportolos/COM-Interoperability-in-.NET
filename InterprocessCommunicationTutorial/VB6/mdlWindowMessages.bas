@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdlWindowMessages"
+Attribute VB_Name = "mdlWindowMessaging"
 Option Explicit
 
 Private Const ModuleName = "mdlWindowsMessaging"
@@ -38,8 +38,8 @@ Public Const MSG_HELLO_REQUEST = "Hello C#"
 Public Const MSG_HELLO_RESPONSE = "Hello VB6"
 
 ' Window Titles
-Private Const VB_WINDOWTITLE_SERVER = "prjStationManager"
-Private Const CS_WINDOWTITLE_SERVER = "frmUpdater"
+Private Const VB_WINDOWTITLE_SERVER = "prjInterprocessCommunication"
+Private Const CS_WINDOWTITLE_SERVER = "InterprocessCommunication"
 
 Private Potentials_WindowHandle As Long
 Private WindowMessagingInitialised As Boolean

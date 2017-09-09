@@ -17,10 +17,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Form_Load()
 'Create custom window and start listening to window messages.
-mdlWindowMessages.InitWindowMessaging
+mdlWindowMessaging.InitWindowMessaging
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
 'Tear down custom message handling and pass back to original message handler i.e this form
-mdlWindowMessages.StopWindowMessaging
+mdlWindowMessaging.StopWindowMessaging
 End Sub
