@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace VB6Interop
 {
+    #region Interface
     [Guid("6DF9A48B-E725-4735-955A-2BAC5439A2BA")]
     [ComVisible(true)]
     public interface IVB6Interop
@@ -24,6 +25,8 @@ namespace VB6Interop
         [DispId(1)]
         void SampleEvent(string Message);
     }
+
+    #endregion
 
     [Guid("7E6D6368-0033-49F6-9FE3-B2D409572869")]
     [ProgId("VB6Interop")]
@@ -45,6 +48,19 @@ namespace VB6Interop
             }
         }
 
+        public void GetTime()
+        {
+            try
+            {
+                FireSampleEvent("I received the message: " + Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Exception occured in GetTime(): ", ex);
+            }
+        }
+
+        #region Events
         // Create delegate
         [ComVisible(true)]
         public delegate void SampleEventHandler(string Message);
@@ -65,6 +81,8 @@ namespace VB6Interop
                 throw new Exception("Exception occured in FireSampleEvent(): ", ex);
             }
         }
+        #endregion
+
     }
 
 }
