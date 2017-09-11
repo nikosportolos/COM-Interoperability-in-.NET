@@ -1,9 +1,6 @@
 Attribute VB_Name = "mdlWindowMessaging"
 Option Explicit
 
-Private Const ModuleName = "mdlWindowsMessaging"
-
-
 '***********************************
 '      D E C L A R A T I O N S
 '***********************************
@@ -33,13 +30,20 @@ Private Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (By
 ' Declaration to post async. message to target Window
 Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Integer, ByVal lParam As Integer) As Long
 
+Private Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hWnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
+Private Declare Function GetWindowTextLength Lib "user32" Alias "GetWindowTextLengthA" (ByVal hWnd As Long) As Long
+
 ' Messages
-Public Const MSG_HELLO_REQUEST = "Hello C#"
-Public Const MSG_HELLO_RESPONSE = "Hello VB6"
+Public Const MSG_HELLO_REQUEST = "MSG_HELLO_REQUEST"
+Public Const MSG_HELLO_RESPONSE = "MSG_HELLO_RESPONSE"
+
+Private Const MSG_VB6_TO_CSHARP = "MCL_VB6_TO_C#"
+Private Const MSG_CSHARP_TO_VB6 = "MCL_C#_TO_VB6"
+
 
 ' Window Titles
-Private Const VB_WINDOWTITLE_SERVER = "prjInterprocessCommunication"
-Private Const CS_WINDOWTITLE_SERVER = "InterprocessCommunication"
+Private Const VB_WINDOWTITLE_SERVER = "VB6InterComm"
+Private Const CS_WINDOWTITLE_SERVER = "CSInterComm"
 
 Private Potentials_WindowHandle As Long
 Private WindowMessagingInitialised As Boolean
@@ -78,9 +82,33 @@ Call SetWindowLongApi(hWindowHandle, GWL_WNDPROC, hOldProc)
 
 End Function
 
+Public Function SendMessageToCSharp()
+Dim hwndTarget As Long
+Dim MessageId As Long
+
+If WindowMessagingInitialised = False Then
+  InitWindowMessaging
+End If
+
+'Get TargetWindow handle from global Window Name
+hwndTarget = CSharp_WindowHandle
+If hwndTarget = 0 Then
+    MsgBox "Unable to find the " & CS_WINDOWTITLE_SERVER & " window", vbCritical, "Interprocess Communication"
+    Exit Function
+End If
+
+'Get MessageId from API call to RegisterMessage
+MessageId = VB6_TO_CSharp_MessageId
+
+'If Window target exists, then SendMessage to target
+If hwndTarget <> 0 Then
+    Call PostMessage(hwndTarget, MessageId, 0, 0)
+End If
+End Function
+
 
 ' Function to find C# window and attempt to send message
-Public Function SendWindowsMessage(Message As String)
+Public Function SendWindowsMessage()
 Dim hwndTarget As Long
 Dim MessageId  As Long
 
@@ -92,6 +120,7 @@ hwndTarget = CSharp_WindowHandle
 ' Check if target window handler was found
 If hwndTarget = 0 Then
     MsgBox "Unable to find the " & CS_WINDOWTITLE_SERVER & " window", vbCritical, "Interprocess Communication"
+    Exit Function
 End If
 
 ' Get MessageId from API call to RegisterMessage
@@ -101,7 +130,19 @@ MessageId = HELLO_RESPONSE_MessageId
 If hwndTarget <> 0 Then Call PostMessage(hwndTarget, MessageId, 0, 0)
   
 End Function
+ 
+' Function to retrieve window title
+Public Sub GetWindowTitle(hWnd As Long)
+Dim MyStr As String
 
+'Create a buffer
+MyStr = String(GetWindowTextLength(hWnd) + 1, Chr$(0))
+
+'Get the window's text
+GetWindowText hWnd, MyStr, Len(MyStr)
+MsgBox MyStr, vbOKOnly, "Interprocess Communication"
+
+End Sub
 
 '***********************************
 '  P R I V A T E   M E T H O D S
@@ -112,12 +153,17 @@ Private Function ProcessWindowMessages(ByVal hWnd As Long, ByVal wMsg As Long, B
 
 Select Case wMsg
     Case HELLO_REQUEST_MessageId
-        MsgBox MSG_HELLO_REQUEST
+        MsgBox "Hello message received from C# application", vbOKOnly, "Interprocess Communication"
         
+    Case VB6_TO_CSharp_MessageId
+        MsgBox "Message from C# received", vbOKOnly, "Interprocess Communication"
+    
     Case Else
         'Pass the message to the previous window procedure to handle it
         ProcessWindowMessages = CallWindowProc(hOldProc, hWnd, wMsg, wParam, lParam)
 End Select
+
+Debug.Print wMsg
 
 End Function
 
@@ -155,6 +201,28 @@ End If
 HELLO_REQUEST_MessageId = HelloRequestMessageId
 End Property
 
+
+Public Property Get VB6_TO_CSharp_MessageId() As Long
+Static VB6ToCSharpMessageId As Long
+
+If VB6ToCSharpMessageId = 0 Then
+  'Pass in global Message_Name
+  VB6ToCSharpMessageId = RegisterWindowMessage(MSG_VB6_TO_CSHARP)
+End If
+
+VB6_TO_CSharp_MessageId = VB6ToCSharpMessageId
+End Property
+
+Public Property Get CSHARP_TO_VB6_MessageId() As Long
+Static CSHARPToVB6MessageId As Long
+
+If CSHARPToVB6MessageId = 0 Then
+  'Pass in global Message_Name
+  CSHARPToVB6MessageId = RegisterWindowMessage(MSG_CSHARP_TO_VB6)
+End If
+
+CSHARP_TO_VB6_MessageId = CSHARPToVB6MessageId
+End Property
 
 
 

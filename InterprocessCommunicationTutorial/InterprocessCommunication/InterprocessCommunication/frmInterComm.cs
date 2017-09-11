@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace InterprocessCommunication
 {
-    public partial class frmInterComm : Form, IDisposable
+    public partial class frmInterComm : Form
     {
         private WindowMessaging WinMsg;
 
@@ -20,9 +20,19 @@ namespace InterprocessCommunication
             WinMsg = new WindowMessaging();
         }
 
+        private void frmInterComm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            WinMsg.Dispose();
+        }
+
         private void btSend2VB_Click(object sender, EventArgs e)
         {
             WinMsg.SendMessage();
+        }
+
+        private void btGetWindowTitle_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(WinMsg.GetActiveWindowTitle());
         }
     }
 }
