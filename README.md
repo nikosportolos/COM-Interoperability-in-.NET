@@ -1,19 +1,36 @@
-# COM-Interoperability in .NET tutorial
+# COM Interoperability in .NET
 
-https://nikosportolos.wordpress.com/com-interop/
 
-![alt text](https://nikosportolos.files.wordpress.com/2017/07/dotnet_logo-min.jpg)
-![alt text](https://nikosportolos.files.wordpress.com/2017/07/visual_basic_6-0_logo-min.png?w=197&h=195)
+<a href="https://raw.githubusercontent.com/nikosportolos/COM-Interoperability-in-.NET/main/Resources/com-interoperability.png" target="_blank">
+    <img src="https://raw.githubusercontent.com/nikosportolos/COM-Interoperability-in-.NET/main/Resources/com-interoperability.png" width="750" alt="dotnet_03">
+</a>
 
 
 ## Part I
-C# – VB6 Interoperability tutorial #1
-https://nikosportolos.wordpress.com/com-interop/tutorial_1/
+
+This tutorial provides a quick and easy guide for basic communication between Visual Basic and C# 
+utilizing the COM Interoperability in .NET.
+
+- Read the article: https://nikosportolos.com/blog/tutorials/com-interoperability-part-i/
+
+- Source code: https://github.com/nikosportolos/COM-Interoperability-in-.NET/tree/main/part-i/src 
+
 
 ## Part II
-C# – VB6 Interoperability tutorial #2 - With events
-https://nikosportolos.wordpress.com/com-interop/tutorial-2-with-events/
+
+In this tutorial, we’ll delve into the fascinating world of COM Interoperability, 
+demonstrating seamless communication between Visual Basic 6 (VB6) and C# applications with custom events.
+
+- Read the article: https://nikosportolos.com/blog/tutorials/com-interoperability-part-ii/
+
+- Source code: https://github.com/nikosportolos/COM-Interoperability-in-.NET/tree/main/part-ii/src
+
 
 ## Part III
-C# – VB6 Interoperability tutorial #3 - Complete source code
-https://nikosportolos.wordpress.com/com-interop/tutorial-3-complete-source-code/
+
+This is an example project to showcase interprocess communication between Visual Basic 6 and .NET (C#) 
+apps using the Windows API to send messages.
+
+- Read the article: https://nikosportolos.com/blog/tutorials/interprocess-communication/
+
+- Source code: https://github.com/nikosportolos/COM-Interoperability-in-.NET/tree/main/part-iii/src 
